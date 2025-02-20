@@ -1,18 +1,25 @@
 
-import {View,Text,StyleSheet,} from 'react-native'
+import {View,Text,StyleSheet,TouchableOpacity} from 'react-native'
+import { IconButton } from 'react-native-paper';
 
 
 
-function Task(props) {
+
+function Task({text,onDelete,EditBtn,completed,checked}) {
     
   return (
     <View style={styles.wrapper}>
         <View style={styles.itemLeft}>
-            <View style={styles.square}></View>
-        <Text style={styles.item}>{props.text}</Text>
+        <TouchableOpacity onPress={checked}>
+            <View style={[styles.square,completed && styles.checkedSquare]}></View>
+            </TouchableOpacity>
+        <Text style={[styles.item,completed && styles.completedText]}>{text}</Text>
         </View>
-        <View style={styles.circular}></View>
-        </View>
+        <View style={styles.iconBtn}>
+        <IconButton icon='pencil' onPress={EditBtn}/>
+        <IconButton icon='trash-can' onPress={onDelete}/>
+       </View>
+         </View>
         
        
   )
@@ -27,7 +34,7 @@ const styles = StyleSheet.create({
       marginTop: 10,
       paddingRight: 20,
       flexDirection: 'row',  
-      justifyContent: 'space-between',  
+      justifyContent:'space-between',  
       alignItems: 'center'
      
      
@@ -48,13 +55,24 @@ const styles = StyleSheet.create({
       height: 20,
       backgroundColor: '#E6E6FA',
     },
-    circular:{
-        width:12,
-        height:12,
-        backgroundColor:'#E6E6FA',
-        borderRadius:10,
-       
-    }
+    iconBtn:{
+       flexDirection:'row'
+      
+
+
+       },
+completedText:{
+  textDecorationLine:'line-through',
+  
+}, 
+  checkedSquare: {
+    backgroundColor: '#4CAF50', 
+  },
+
+  
+
+ 
+
   });
 
 export default Task
